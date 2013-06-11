@@ -1,4 +1,4 @@
-simple-data-structure
+Simple Data Structure
 =====================
 
-Simple data structure library
+It is a simple data structure library which provides QUEUE, STACK and RING (Circular Buffer) APIs.
