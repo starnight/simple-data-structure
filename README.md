@@ -115,4 +115,4 @@ int main (void) {
 License
 -------
 
-simple-data-structure's code uses the BSD license, see our ['LICENSE.md'](https://github.com/starnight/simple-data-structure/blob/master/LICENSE.md, "LICENSE.md") file.
+simple-data-structure's code uses the BSD license, see our ['LICENSE.md'](https://github.com/starnight/simple-data-structure/blob/master/LICENSE.md "LICENSE.md") file.
