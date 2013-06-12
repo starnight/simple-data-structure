@@ -38,7 +38,7 @@ Quick Start
 -----------
 
 This example is first round of codes in 'demo.c' which tests the QUEUE behavior.
-It will push elements into the QUEUE until the QUEUE is full.  Then enumerate
+It will push elements into the QUEUE until the QUEUE is full.  Then enumerates
 the elements in the QUEUE to show the values.  Finally, pop all the elements in
 the QUEUE.
 
@@ -115,4 +115,4 @@ int main (void) {
 License
 -------
 
-simple-data-structure's code uses the BSD license, see our 'LICENSE.md' file.
+simple-data-structure's code uses the BSD license, see our ['LICENSE.md'](https://github.com/starnight/simple-data-structure/blob/master/LICENSE.md, "LICENSE.md") file.
