@@ -44,7 +44,7 @@ int demoQueue(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 
-	/* Emulate the queue elements and pop each element. */
+	/* Enumerate the queue elements and pop each element. */
 	do {
 		printf("inpos=%d outpos=%d  ", q.inpos, q.outpos);
 		SDSFront(&q, &elem, sizeof(elem));
@@ -106,7 +106,7 @@ int demoStack(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 
-	/* Emulate the stack elements and pop each element. */
+	/* Enumerate the stack elements and pop each element. */
 	do {
 		printf("inpos=%d outpos=%d  ", s.inpos, s.outpos);
 		res = SDSFront(&s, &elem, sizeof(elem));
@@ -168,7 +168,7 @@ int demoRing(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 
-	/* Emulate the ring elements and pop each element. */
+	/* Enumerate the ring elements and pop each element. */
 	do {
 		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x60) >> 5);
 		res = SDSFront(&r, &elem, sizeof(elem));
@@ -210,7 +210,7 @@ int demoRing(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 	
-	/* Emulate the ring elements and pop each element. */
+	/* Enumerate the ring elements and pop each element. */
 	do {
 		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x60) >> 5);
 		res = SDSFront(&r, &elem, sizeof(elem));
@@ -251,7 +251,7 @@ int demoRing(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 	
-	/* Emulate the ring elements and pop each element. */
+	/* Enumerate the ring elements and pop each element. */
 	for (i = 0; i < 2; i++) {
 		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x60) >> 5);
 		res = SDSFront(&r, &elem, sizeof(elem));
