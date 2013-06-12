@@ -88,7 +88,7 @@ int main (void) {
 	/* How many elements does the queue remian? */
 	printf("The queue remains %d elements.\n", SDSEmpty(&q));
 
-	for(i=0; i<q.len; i++)
+	for(i = 0; i < q.len; i++)
 		printf("%d\t",buf[i]);
 	printf("\n");
 
