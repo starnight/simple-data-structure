@@ -3,7 +3,7 @@
 
 /* Initial the queue. */
 void SDSInitQueue(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
-	b->type = (b->type & 0x9F) | (SDS_QUEUETYPE << 5);
+	b->type = (b->type & 0xFC) | SDS_QUEUETYPE;
 	b->len = len;
 	b->inpos = 0;
 	b->outpos = 0;
@@ -12,7 +12,7 @@ void SDSInitQueue(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
 
 /* Initial the stack. */
 void SDSInitStack(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
-	b->type = (b->type & 0x9F) | (SDS_STACKTYPE << 5);
+	b->type = (b->type & 0xFC) | SDS_STACKTYPE;
 	b->len = len;
 	b->inpos = 0;
 	b->outpos = 0;
@@ -21,7 +21,7 @@ void SDSInitStack(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
 
 /* Initial the ring. */
 void SDSInitRing(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
-	b->type = (b->type & 0x9F) | (SDS_RINGTYPE << 5);
+	b->type = (b->type & 0xFC) | SDS_RINGTYPE;
 	b->len = len;
 	b->inpos = 0;
 	b->outpos = 0;
@@ -33,10 +33,10 @@ uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
 	uint8_t rem;
 
 	/* Check the array type.  Then, have the remain count. */
-	if ((b->type & 0x20) == 0)
+	if ((b->type & 0x01) == 0)
 		/* It is the queue or ring type. */
 		rem = b->inpos - b->outpos;
-	else if ((b->type & 0x40) == 0)
+	else if ((b->type & 0x03) == SDS_STACKTYPE)
 		/* It is the stack type. */
 		rem = b->inpos;
 	else
@@ -98,7 +98,7 @@ uint8_t SDSPushRing(SDS_RING *b, void *elem, size_t size) {
 	uint8_t res = SDS_OK;
 	
 	/* Check the array type is not rounded ring. */
-	if ((b->type & 0x60) == (SDS_RINGTYPE << 5)) {
+	if ((b->type & 0x03) == SDS_RINGTYPE) {
 		/* Check the input position to prevent buffer over flow. */
 		if(b->inpos < b->len) {
 			/* The input position is not at the end of the buffer. */
@@ -114,7 +114,7 @@ uint8_t SDSPushRing(SDS_RING *b, void *elem, size_t size) {
 			/* Have the destination pointer for being rounded. */
 			dst = b->elems;
 			/* Set the array type being a rounded ring. */
-			b->type = b->type | (SDS_ROUNDEDRINGTYPE << 5);
+			b->type = b->type | (SDS_ROUNDEDRINGTYPE);
 			/* Circular the input position of the buffer for input. */
 			b->inpos = 1;
 			/* Copy the element into the buffer with the defined position. */
@@ -192,7 +192,7 @@ uint8_t SDSPopRing(SDS_RING *b) {
 	uint8_t res = SDS_OK;
 
 	/* Check the array type is not rounded ring. */
-	if ((b->type & 0x60) == (SDS_RINGTYPE << 5)) {
+	if ((b->type & 0x03) == SDS_RINGTYPE) {
 		/* Check the output position to prevent buffer over flow. */
 		if (b->outpos < b->inpos) {
 			/* The ring is not empty. */
@@ -215,7 +215,7 @@ uint8_t SDSPopRing(SDS_RING *b) {
 		else {
 			/* The output position is at the end of the buffer. */
 			/* Set the array type being a rounded ring. */
-			b->type = (b->type & 0x9F) | (SDS_RINGTYPE << 5);
+			b->type = (b->type & 0xFC) | (SDS_RINGTYPE);
 			/* Circular the input position of the buffer for input. */
 			b->outpos = 1;
 		}
@@ -268,7 +268,7 @@ uint8_t SDSFrontRing(SDS_RING *b, void *elem, size_t size) {
 	uint8_t res = SDS_OK;
 
 	/* Check the ring is rounded or not. */
-	if ((b->type & 0x6F) == (SDS_RINGTYPE << 5)) {
+	if ((b->type & 0x03) == SDS_RINGTYPE) {
 		/* It is not rounded ring. */
 		/* Check the ring is not empty to prevent buffer over flow. */
 		if(b->outpos < b->inpos) {
@@ -365,7 +365,7 @@ uint8_t SDSPush(struct _SDS_BUFFER *b, void *elem, size_t size) {
 	func[2] = SDSPushRing;
 	func[3] = SDSPushRing;
 
-	return func[(b->type & 0x60) >> 5](b, elem, size);
+	return func[b->type & 0x03](b, elem, size);
 }
 
 /* Pop the indexed element from the buffer of the data structure. */
@@ -378,7 +378,7 @@ uint8_t SDSPop(struct _SDS_BUFFER *b) {
 	func[2] = SDSPopRing;
 	func[3] = SDSPopRing;
 
-	return func[(b->type & 0x60) >> 5](b);
+	return func[b->type & 0x03](b);
 }
 
 /* Get the next element from the buffer of the data structure. */
@@ -391,7 +391,7 @@ uint8_t SDSFront(struct _SDS_BUFFER *b, void *elem, size_t size) {
 	func[2] = SDSFrontRing;
 	func[3] = SDSFrontRing;
 
-	return func[(b->type & 0x60) >> 5](b, elem, size);
+	return func[b->type & 0x03](b, elem, size);
 }
 
 /* Get the last element from the buffer of the data structure. */
@@ -404,5 +404,5 @@ uint8_t SDSBack(struct _SDS_BUFFER *b, void *elem, size_t size) {
 	func[2] = SDSBackRing;
 	func[3] = SDSBackRing;
 
-	return func[(b->type & 0x60) >> 5](b, elem, size);
+	return func[b->type & 0x03](b, elem, size);
 }
