@@ -2,7 +2,7 @@
 #include "datastructure.h" 
 
 /* Initial the queue. */
-void SDSInitQueue(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
+void SDSInitQueue(SDS_QUEUE *b, uint8_t len, void *elems) {
 	b->type = (b->type & 0xFC) | SDS_QUEUETYPE;
 	b->len = len;
 	b->inpos = 0;
@@ -11,7 +11,7 @@ void SDSInitQueue(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
 }
 
 /* Initial the stack. */
-void SDSInitStack(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
+void SDSInitStack(SDS_STACK *b, uint8_t len, void *elems) {
 	b->type = (b->type & 0xFC) | SDS_STACKTYPE;
 	b->len = len;
 	b->inpos = 0;
@@ -20,7 +20,7 @@ void SDSInitStack(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
 }
 
 /* Initial the ring. */
-void SDSInitRing(struct _SDS_BUFFER *b, uint8_t len, void *elems) {
+void SDSInitRing(SDS_RING *b, uint8_t len, void *elems) {
 	b->type = (b->type & 0xFC) | SDS_RINGTYPE;
 	b->len = len;
 	b->inpos = 0;

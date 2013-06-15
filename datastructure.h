@@ -32,11 +32,11 @@ typedef struct _SDS_BUFFER SDS_STACK;
 typedef struct _SDS_BUFFER SDS_RING;
 
 /* Initial the queue. */
-inline void SDSInitQueue(struct _SDS_BUFFER *, uint8_t, void *);
+inline void SDSInitQueue(SDS_QUEUE *, uint8_t, void *);
 /* Initial the stack. */
-inline void SDSInitStack(struct _SDS_BUFFER *, uint8_t, void *);
+inline void SDSInitStack(SDS_STACK *, uint8_t, void *);
 /* Initial the ring. */
-inline void SDSInitRing(struct _SDS_BUFFER *, uint8_t, void *);
+inline void SDSInitRing(SDS_RING *, uint8_t, void *);
 
 /* Check the buffer of the data structure is empty or not. */
 inline uint8_t SDSEmpty(struct _SDS_BUFFER *);
