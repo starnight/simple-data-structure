@@ -44,7 +44,7 @@ inline uint8_t SDSEmpty(struct _SDS_BUFFER *);
 inline uint8_t SDSSize(struct _SDS_BUFFER *);
 /* Push an element into the buffer of the data structure. */
 inline uint8_t SDSPush(struct _SDS_BUFFER *, void *, size_t);
-/* Pop the indexed element from the buffer of the data structure. */
+/* Pop the first ordered element from the buffer of the data structure. */
 inline uint8_t SDSPop(struct _SDS_BUFFER *);
 /* Get the next element from the buffer of the data structure. */
 inline uint8_t SDSFront(struct _SDS_BUFFER *, void *, size_t);
@@ -53,7 +53,7 @@ inline uint8_t SDSBack(struct _SDS_BUFFER *, void *, size_t);
 
 /* Push an element into the buffer of the queue. */
 inline uint8_t SDSPushQueue(SDS_QUEUE *, void *, size_t);
-/* Pop the indexed element from the buffer of the queue. */
+/* Pop the first ordered element from the buffer of the queue. */
 inline uint8_t SDSPopQueue(SDS_QUEUE *);
 /* Get the next element from the buffer of the queue. */
 inline uint8_t SDSFrontQueue(SDS_QUEUE *, void *, size_t);
@@ -62,7 +62,7 @@ inline uint8_t SDSBackQueue(SDS_QUEUE *, void *, size_t);
 
 /* Push an element into the buffer of the stack. */
 inline uint8_t SDSPushStack(SDS_STACK *, void *, size_t);
-/* Pop the indexed element from the buffer of the stack. */
+/* Pop the first ordered element from the buffer of the stack. */
 inline uint8_t SDSPopStack(SDS_STACK *);
 /* Get the next element from the buffer of the stack. */
 inline uint8_t SDSFrontStack(SDS_STACK *, void *, size_t);
@@ -71,7 +71,7 @@ inline uint8_t SDSBackStack(SDS_STACK *, void *, size_t);
 
 /* Push an element into the buffer of the ring. */
 inline uint8_t SDSPushRing(SDS_RING *, void *, size_t);
-/* Pop the indexed element from the buffer of the ring. */
+/* Pop the first ordered element from the buffer of the ring. */
 inline uint8_t SDSPopRing(SDS_RING *);
 /* Get the next element from the buffer of the ring. */
 inline uint8_t SDSFrontRing(SDS_RING *, void *, size_t);

@@ -143,7 +143,7 @@ uint8_t SDSPushRing(SDS_RING *b, void *elem, size_t size) {
 	return res;
 }
 
-/* Pop the indexed element from the queue. */
+/* Pop the first ordered element from the queue. */
 uint8_t SDSPopQueue(SDS_QUEUE *b) {
 	uint8_t res = SDS_OK;
 
@@ -160,7 +160,7 @@ uint8_t SDSPopQueue(SDS_QUEUE *b) {
 	return res;
 }
 
-/* Pop the indexed element from the stack. */
+/* Pop the first ordered element from the stack. */
 uint8_t SDSPopStack(SDS_STACK *b) {
 	uint8_t res = SDS_OK;
 
@@ -187,7 +187,7 @@ uint8_t SDSPopStack(SDS_STACK *b) {
 	return res;
 }
 
-/* Pop the indexed element from the ring. */
+/* Pop the first ordered element from the ring. */
 uint8_t SDSPopRing(SDS_RING *b) {
 	uint8_t res = SDS_OK;
 
@@ -368,7 +368,7 @@ uint8_t SDSPush(struct _SDS_BUFFER *b, void *elem, size_t size) {
 	return func[b->type & 0x03](b, elem, size);
 }
 
-/* Pop the indexed element from the buffer of the data structure. */
+/* Pop the first ordered element from the buffer of the data structure. */
 uint8_t SDSPop(struct _SDS_BUFFER *b) {
 	uint8_t (*func[4])(struct _SDS_BUFFER *);
 
