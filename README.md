@@ -44,7 +44,7 @@ the QUEUE.
 
 Create a C file where the main function located.
 
-```
+```C
 #include <stdio.h>
 #include "datastructure.h"
 
