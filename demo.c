@@ -3,12 +3,24 @@
 
 #define BUFLEN	8
 
+inline void showStatus(struct _SDS_BUFFER *b) {
+	uint8_t *get = NULL;
+	uint8_t res = SDS_OK;
+	
+	printf("inpos=%d outpos=%d  ", b->inpos, b->outpos);
+	get = SDSFront(b, sizeof(uint8_t), &res);
+	if (res == SDS_OK) printf("Front element: %d.  ", *get);
+	get = SDSBack(b, sizeof(uint8_t), &res);
+	if (res == SDS_OK) printf("Back element: %d.  ", *get);
+}
+
 int demoQueue(void) {
 	/* Have a buffer of the queue. */
 	int8_t buf[BUFLEN];
 	/* Have a queue. */
 	SDS_QUEUE q;
 	uint8_t elem = 0;
+	uint8_t *get = NULL;
 	int i = 0;
 	uint8_t res;
 
@@ -22,19 +34,14 @@ int demoQueue(void) {
 	printf("The queue is %sempty.\n", (SDSEmpty(&q) ? "not ":""));
 	
 	do {
-		printf("inpos=%d outpos=%d  ", q.inpos, q.outpos);
+		showStatus(&q);
 		/* Push an element into the queue. */
 		elem = i*2;
-		res = SDSPush(&q, &elem, sizeof(elem));
+		res = SDSPush(&q, &elem, sizeof(uint8_t));
 		i++;
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Push an element: %d.  ", elem);
-			SDSFront(&q, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&q, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Push an element: %d.  ", elem);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
@@ -44,19 +51,14 @@ int demoQueue(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 
-	/* Enumerate the queue elements and pop each element. */
 	do {
-		printf("inpos=%d outpos=%d  ", q.inpos, q.outpos);
-		SDSFront(&q, &elem, sizeof(elem));
+		showStatus(&q);
+		/* Pop an element into the queue. */
+		get = SDSFront(&q, sizeof(uint8_t), &res);
 		res = SDSPop(&q);
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Pop an element: %d.  ", elem);
-			//SDSFront(&q, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&q, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Pop an element: %d.  ", *get);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
@@ -71,6 +73,7 @@ int demoStack(void) {
 	/* Have a stack. */
 	SDS_STACK s;
 	uint8_t elem = 0;
+	uint8_t *get = NULL;
 	int i = 0;
 	uint8_t res = 0;
 
@@ -84,19 +87,14 @@ int demoStack(void) {
 	printf("The stack is %sempty.\n", (SDSEmpty(&s) ? "not ":""));
 	
 	do {
-		printf("inpos=%d outpos=%d  ", s.inpos, s.outpos);
+		showStatus(&s);
 		/* Push an element into the stack. */
 		elem = i*2;
-		res = SDSPush(&s, &elem, sizeof(elem));
+		res = SDSPush(&s, &elem, sizeof(uint8_t));
 		printf("res=%d  ", res);
 		i++;
-		if(res == SDS_OK) {
-			printf("Push an element: %d.  ", elem);
-			SDSFront(&s, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&s, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Push an element: %d.  ", elem);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
@@ -106,19 +104,14 @@ int demoStack(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 
-	/* Enumerate the stack elements and pop each element. */
 	do {
-		printf("inpos=%d outpos=%d  ", s.inpos, s.outpos);
-		res = SDSFront(&s, &elem, sizeof(elem));
+		showStatus(&s);
+		/* Pop an element into the stack. */
+		get = SDSFront(&s, sizeof(uint8_t), &res);
 		res = SDSPop(&s);
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Pop an element: %d.  ", elem);
-			//SDSFront(&s, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&s, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Pop an element: %d.  ", *get);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
@@ -133,6 +126,7 @@ int demoRing(void) {
 	/* Have a ring. */
 	SDS_RING r;
 	uint8_t elem = 0;
+	uint8_t *get = NULL;
 	int i = 0;
 	uint8_t res = 0;
 
@@ -146,19 +140,14 @@ int demoRing(void) {
 	printf("The ring is %sempty.\n", (SDSEmpty(&r) ? "not ":""));
 	
 	do {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
+		showStatus(&r);
 		/* Push an element into the ring. */
 		elem = i*2;
-		res = SDSPush(&r, &elem, sizeof(elem));
+		res = SDSPush(&r, &elem, sizeof(uint8_t));
 		printf("res=%d  ", res);
 		i++;
-		if(res == SDS_OK) {
-			printf("Push an element: %d.  ", elem);
-			SDSFront(&r, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Push an element: %d.  ", elem);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the ring remian? */
@@ -168,39 +157,28 @@ int demoRing(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 
-	/* Enumerate the ring elements and pop each element. */
 	do {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
-		res = SDSFront(&r, &elem, sizeof(elem));
-		printf("res=%d  ", res);
+		showStatus(&r);
+		/* Pop an element into the ring. */
+		get = SDSFront(&r, sizeof(uint8_t), &res);
 		res = SDSPop(&r);
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Pop an element: %d.  ", elem);
-			//SDSFront(&s, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Pop an element: %d.  ", *get);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
 	printf("The ring remains %d elements.\n", SDSEmpty(&r));
 	i = 0;
 	do {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
+		showStatus(&r);
 		/* Push an element into the ring. */
 		elem = i*2;
-		res = SDSPush(&r, &elem, sizeof(elem));
+		res = SDSPush(&r, &elem, sizeof(uint8_t));
 		printf("res=%d  ", res);
 		i++;
-		if(res == SDS_OK) {
-			printf("Push an element: %d.  ", elem);
-			SDSFront(&r, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Push an element: %d.  ", elem);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the ring remian? */
@@ -210,38 +188,27 @@ int demoRing(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 	
-	/* Enumerate the ring elements and pop each element. */
 	do {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
-		res = SDSFront(&r, &elem, sizeof(elem));
-		printf("res=%d  ", res);
+		showStatus(&r);
+		/* Pop an element into the ring. */
+		get = SDSFront(&r, sizeof(uint8_t), &res);
 		res = SDSPop(&r);
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Pop an element: %d.  ", elem);
-			//SDSFront(&s, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Pop an element: %d.  ", *get);
+		printf("\n");
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
 	printf("The ring remains %d elements.\n", SDSEmpty(&r));
 	
 	for (i = 0; i < 4; i++) {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
+		showStatus(&r);
 		/* Push an element into the ring. */
 		elem = i*2;
-		res = SDSPush(&r, &elem, sizeof(elem));
+		res = SDSPush(&r, &elem, sizeof(uint8_t));
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Push an element: %d.  ", elem);
-			SDSFront(&r, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Push an element: %d.  ", elem);
+		printf("\n");
 	}
 
 	/* How many elements does the ring remian? */
@@ -251,20 +218,14 @@ int demoRing(void) {
 		printf("%d\t",buf[i]);
 	printf("\n");
 	
-	/* Enumerate the ring elements and pop each element. */
 	for (i = 0; i < 2; i++) {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
-		res = SDSFront(&r, &elem, sizeof(elem));
-		printf("res=%d  ", res);
+		showStatus(&r);
+		/* Pop an element into the ring. */
+		get = SDSFront(&r, sizeof(uint8_t), &res);
 		res = SDSPop(&r);
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Pop an element: %d.  ", elem);
-			//SDSFront(&s, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Pop an element: %d.  ", *get);
+		printf("\n");
 	}
 
 	/* How many elements does the queue remian? */
@@ -275,18 +236,13 @@ int demoRing(void) {
 	printf("\n");
 	
 	for (i = 0; i < 4; i++) {
-		printf("inpos=%d outpos=%d type=%d  ", r.inpos, r.outpos, (r.type & 0x03));
+		showStatus(&r);
 		/* Push an element into the ring. */
 		elem = i*2;
-		res = SDSPush(&r, &elem, sizeof(elem));
+		res = SDSPush(&r, &elem, sizeof(uint8_t));
 		printf("res=%d  ", res);
-		if(res == SDS_OK) {
-			printf("Push an element: %d.  ", elem);
-			SDSFront(&r, &elem, sizeof(elem));
-			printf("Front element: %d.  ", elem);
-			SDSBack(&r, &elem, sizeof(elem));
-			printf("Back element: %d.\n", elem);
-		}
+		if(res == SDS_OK) printf("Push an element: %d.  ", elem);
+		printf("\n");
 	}
 
 	/* How many elements does the ring remian? */
