@@ -19,10 +19,10 @@ Demo usage
 ----------
 
 Before compile this library, you must have the compiler, for example GCC, of
-course.  There is a demo code which is '[demo.c](README.md)'.  You can just use the 'make'
-utility which will compile the codes according to the 'Makefile'.  Then execute
-the program 'demo.bin' for demo.  I also use the program to test the APIs I
-wrote working right or wrong.
+course.  There is a demo code which is '[demo.c](demo.c)'.  You can just use the
+'make' utility which will compile the codes according to the 'Makefile'.  Then
+execute the program 'demo.bin' for demo.  I also use the program to test the
+APIs I wrote working right or wrong.
 
 ```
 $ make
