@@ -28,8 +28,18 @@ void SDSInitRing(SDS_RING *b, uint8_t len, void *elems) {
 	b->elems = elems;
 }
 
-/* Check the buffer of the data structure is empty or not. */
+/* Test the data structure is empty or not. */
 uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
+	uint8_t rem;
+
+	/* It is empty if input position is different from out position. */
+	rem = (b->inpos == b->outpos);
+
+	return rem;
+}
+
+/* Get the number of elements in the data structure. */
+uint8_t SDSSize(struct _SDS_BUFFER *b) {
 	uint8_t rem;
 
 	/* Check the array type.  Then, have the remain count. */
@@ -44,11 +54,6 @@ uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
 		rem = b->inpos + (b->len - b->outpos);
 
 	return rem;
-}
-
-/* Get the buffer size of the data structure. */
-uint8_t SDSSize(struct _SDS_BUFFER *b) {
-	return b->len;
 }
 
 /* Push an element into the queue. */

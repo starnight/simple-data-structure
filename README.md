@@ -62,7 +62,7 @@ int main(void) {
 
     /* Initial the queue with assigned length and the buffer array. */
     SDSInitQueue(&q, len, elems);
-    printf("The queue can have %d elements.\n", SDSSize(&q));
+    printf("The queue can have %d elements.\n", q.len);
 
     /* Push BUFLEN elements into the queue. */
     for (elem = 100; elem < (100 + BUFLEN); elem++) {
@@ -81,7 +81,10 @@ int main(void) {
     /* Get last element from the queue. */
     get = SDSBack(&q, sizeof(int), &err); printf("Back queue:%d\n", *get);
 
-    printf("The queue remians with %d elements.\n", SDSEmpty(&q));
+    if(!SDSEmpty(&q))
+		printf("The queue remians with %d elements.\n", SDSSize(&q));
+	else
+		printf("The queue is empty.\n");
 
     return 0;
 }

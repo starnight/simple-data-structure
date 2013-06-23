@@ -38,9 +38,9 @@ inline void SDSInitStack(SDS_STACK *, uint8_t, void *);
 /* Initial the ring. */
 inline void SDSInitRing(SDS_RING *, uint8_t, void *);
 
-/* Check the buffer of the data structure is empty or not. */
+/* Test the data structure is empty or not. */
 inline uint8_t SDSEmpty(struct _SDS_BUFFER *);
-/* Get the buffer size of the data structure. */
+/* Get the number of elements in the data structure. */
 inline uint8_t SDSSize(struct _SDS_BUFFER *);
 /* Push an element into the buffer of the data structure. */
 inline uint8_t SDSPush(struct _SDS_BUFFER *, void *, size_t);

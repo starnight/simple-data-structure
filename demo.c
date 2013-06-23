@@ -29,9 +29,9 @@ int demoQueue(void) {
 
 	printf("Queue 0x%x demo started!\n", (q.type & 0x03));
 	/*Have the size of the queue. */
-	printf("The length of the queue is %d.\n", (int)SDSSize(&q));
+	printf("The length of the queue is %d.\n", q.len);
 	/* Check the queue is empty. */
-	printf("The queue is %sempty.\n", (SDSEmpty(&q) ? "not ":""));
+	printf("The queue is %sempty.\n", (SDSEmpty(&q) ? "":"not "));
 	
 	do {
 		showStatus(&q);
@@ -45,7 +45,7 @@ int demoQueue(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
-	printf("The queue remains %d elements.\n", SDSEmpty(&q));
+	printf("The queue remains %d elements.\n", SDSSize(&q));
 
 	for(i = 0; i < q.len; i++)
 		printf("%d\t",buf[i]);
@@ -62,7 +62,7 @@ int demoQueue(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
-	printf("The queue remains %d elements.\n", SDSEmpty(&q));
+	printf("The queue remains %d elements.\n", SDSSize(&q));
 
 	return 0;
 }
@@ -82,9 +82,9 @@ int demoStack(void) {
 
 	printf("Stack 0x%d demo started!\n", (s.type & 0x03));
 	/*Have the size of the stack. */
-	printf("The length of the stack is %d.\n", (int)SDSSize(&s));
+	printf("The length of the stack is %d.\n", s.len);
 	/* Check the stack is empty. */
-	printf("The stack is %sempty.\n", (SDSEmpty(&s) ? "not ":""));
+	printf("The stack is %sempty.\n", (SDSEmpty(&s) ? "":"not "));
 	
 	do {
 		showStatus(&s);
@@ -98,7 +98,7 @@ int demoStack(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
-	printf("The stack remains %d elements.\n", SDSEmpty(&s));
+	printf("The stack remains %d elements.\n", SDSSize(&s));
 
 	for(i = 0; i < s.len; i++)
 		printf("%d\t",buf[i]);
@@ -115,7 +115,7 @@ int demoStack(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
-	printf("The stack remains %d elements.\n", SDSEmpty(&s));
+	printf("The stack remains %d elements.\n", SDSSize(&s));
 
 	return 0;
 }
@@ -135,9 +135,9 @@ int demoRing(void) {
 
 	printf("Ring 0x%d demo started!\n", (r.type & 0x03));
 	/*Have the size of the stack. */
-	printf("The length of the ring is %d.\n", (int)SDSSize(&r));
+	printf("The length of the ring is %d.\n", r.len);
 	/* Check the stack is empty. */
-	printf("The ring is %sempty.\n", (SDSEmpty(&r) ? "not ":""));
+	printf("The ring is %sempty.\n", (SDSEmpty(&r) ? "":"not "));
 	
 	do {
 		showStatus(&r);
@@ -151,7 +151,7 @@ int demoRing(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the ring remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 
 	for(i = 0; i < r.len; i++)
 		printf("%d\t",buf[i]);
@@ -168,7 +168,7 @@ int demoRing(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 	i = 0;
 	do {
 		showStatus(&r);
@@ -182,7 +182,7 @@ int demoRing(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the ring remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 
 	for(i = 0; i < r.len; i++)
 		printf("%d\t",buf[i]);
@@ -199,7 +199,7 @@ int demoRing(void) {
 	}while(res == SDS_OK);
 
 	/* How many elements does the queue remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 	
 	for (i = 0; i < 4; i++) {
 		showStatus(&r);
@@ -212,7 +212,7 @@ int demoRing(void) {
 	}
 
 	/* How many elements does the ring remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 
 	for(i = 0; i < r.len; i++)
 		printf("%d\t",buf[i]);
@@ -229,7 +229,7 @@ int demoRing(void) {
 	}
 
 	/* How many elements does the queue remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 	
 	for(i = 0; i < r.len; i++)
 		printf("%d\t",buf[i]);
@@ -246,7 +246,7 @@ int demoRing(void) {
 	}
 
 	/* How many elements does the ring remian? */
-	printf("The ring remains %d elements.\n", SDSEmpty(&r));
+	printf("The ring remains %d elements.\n", SDSSize(&r));
 
 	for(i = 0; i < r.len; i++)
 		printf("%d\t",buf[i]);
