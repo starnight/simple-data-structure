@@ -81,6 +81,7 @@ int main(void) {
     /* Get last element from the queue. */
     get = SDSBack(&q, sizeof(int), &err); printf("Back queue:%d\n", *get);
 
+    /* Test the queue is empty or not. */
     if(!SDSEmpty(&q))
 		printf("The queue remians with %d elements.\n", SDSSize(&q));
 	else
