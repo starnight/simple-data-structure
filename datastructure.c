@@ -229,7 +229,7 @@ uint8_t SDSPopRing(SDS_RING *b) {
 	return res;
 }
 
-/* Get next element from the queue. */
+/* Access next element from the queue. */
 void * SDSFrontQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
@@ -248,7 +248,7 @@ void * SDSFrontQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 	return src;
 }
 
-/* Get next element from the stack. */
+/* Access next element from the stack. */
 void * SDSFrontStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
@@ -267,7 +267,7 @@ void * SDSFrontStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	return src;
 }
 
-/* Get next element from the ring. */
+/* Access next element from the ring. */
 void * SDSFrontRing(SDS_RING *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
@@ -302,7 +302,7 @@ void * SDSFrontRing(SDS_RING *b, size_t size, uint8_t *err) {
 	return src;
 }
 
-/* Get last element from the queue. */
+/* Access last element from the queue. */
 void * SDSBackQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
@@ -321,7 +321,7 @@ void * SDSBackQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 	return src;
 }
 
-/* Get last element from the stack. */
+/* Access last element from the stack. */
 void * SDSBackStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	void *src;
 	
@@ -340,7 +340,7 @@ void * SDSBackStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	return src;
 }
 
-/* Get last element from the ring. */
+/* Access last element from the ring. */
 void * SDSBackRing(SDS_RING *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
@@ -385,7 +385,7 @@ uint8_t SDSPop(struct _SDS_BUFFER *b) {
 	return func[b->type & 0x03](b);
 }
 
-/* Get the next element from the buffer of the data structure. */
+/* Access next element from the buffer of the data structure. */
 void * SDSFront(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 	void * (*func[4])(struct _SDS_BUFFER *, size_t, uint8_t *);
 
@@ -398,7 +398,7 @@ void * SDSFront(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 	return func[b->type & 0x03](b, size, err);
 }
 
-/* Get the last element from the buffer of the data structure. */
+/* Access last element from the buffer of the data structure. */
 void * SDSBack(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 	void * (*func[4])(struct _SDS_BUFFER *, size_t, uint8_t *);
 
