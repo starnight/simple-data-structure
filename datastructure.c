@@ -323,7 +323,7 @@ void * SDSBackQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 
 /* Access last element from the stack. */
 void * SDSBackStack(SDS_STACK *b, size_t size, uint8_t *err) {
-	void *src;
+	void *src = NULL;
 	
 	*err = SDS_OK;
 
