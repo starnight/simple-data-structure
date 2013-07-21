@@ -7,9 +7,9 @@ It is a simple data structure library which provides QUEUE, STACK and RING
 Have the code
 -------------
 
-You can have it from the Github: [https://github.com/starnight/simple-data-structure](https://github.com/starnight/simple-data-structure, "Simple Date Sturcture")
+You can have it from the GitHub: [https://github.com/starnight/simple-data-structure](https://github.com/starnight/simple-data-structure, "Simple Date Sturcture")
 
-Or, clone the source code from Github.
+Or, clone the source code from GitHub.
 
 ```
 git clone git://github.com/starnight/simple-data-structure.git
@@ -95,4 +95,4 @@ int main(void) {
 License
 -------
 
-simple-data-structure's code uses the BSD license, see our ['LICENSE.md'](https://github.com/starnight/simple-data-structure/blob/master/LICENSE.md "LICENSE.md") file.
+simple-data-structure's code uses the BSD license, see our '[LICENSE.md](https://github.com/starnight/simple-data-structure/blob/master/LICENSE.md "LICENSE.md")' file.
