@@ -249,7 +249,7 @@ void * SDSFrontQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 }
 
 /* Access next element from the stack. */
-void * SDSFrontStack(SDS_STACK *b, size_t size, uint8_t *err) {
+void * SDSTopStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -391,7 +391,7 @@ void * SDSFront(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 
 	/* Set the function pointers for get next element. */
 	func[0] = SDSFrontQueue;
-	func[1] = SDSFrontStack;
+	func[1] = SDSTopStack;
 	func[2] = SDSFrontRing;
 	func[3] = SDSFrontRing;
 

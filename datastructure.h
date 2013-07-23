@@ -65,7 +65,7 @@ inline uint8_t SDSPushStack(SDS_STACK *, void *, size_t);
 /* Pop the first ordered element from the buffer of the stack. */
 inline uint8_t SDSPopStack(SDS_STACK *);
 /* Access next element from the buffer of the stack. */
-inline void * SDSFrontStack(SDS_STACK *, size_t, uint8_t *);
+inline void * SDSTopStack(SDS_STACK *, size_t, uint8_t *);
 /* Access last element from the buffer of the stack. */
 inline void * SDSBackStack(SDS_STACK *, size_t, uint8_t *);
 
