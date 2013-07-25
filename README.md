@@ -4,6 +4,8 @@ Simple Data Structure
 It is a simple data structure library which provides QUEUE, STACK and RING 
 (Circular Buffer) APIs.
 
+Find more information from the [Wiki](https://github.com/starnight/simple-data-structure/wiki, "Simple Data Structure Wiki").
+
 Have the code
 -------------
 
