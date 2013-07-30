@@ -40,7 +40,7 @@ inline void SDSInitRing(SDS_RING *, uint8_t, void *);
 
 /* Test the data structure is empty or not. */
 inline uint8_t SDSEmpty(struct _SDS_BUFFER *);
-/* Get the number of elements in the data structure. */
+/* Get the number of elements in the buffer of the data structure. */
 inline uint8_t SDSSize(struct _SDS_BUFFER *);
 /* Push an element into the buffer of the data structure. */
 inline uint8_t SDSPush(struct _SDS_BUFFER *, void *, size_t);

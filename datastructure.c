@@ -38,7 +38,7 @@ inline uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
 	return rem;
 }
 
-/* Get the number of elements in the data structure. */
+/* Get the number of elements in the buffer of the data structure. */
 inline uint8_t SDSSize(struct _SDS_BUFFER *b) {
 	uint8_t rem;
 
