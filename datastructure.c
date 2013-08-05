@@ -2,7 +2,7 @@
 #include "datastructure.h" 
 
 /* Initial the queue. */
-inline void SDSInitQueue(SDS_QUEUE *b, uint8_t len, void *elems) {
+void SDSInitQueue(SDS_QUEUE *b, uint8_t len, void *elems) {
 	b->type = (b->type & 0xFC) | SDS_QUEUETYPE;
 	b->len = len;
 	b->inpos = 0;
@@ -11,7 +11,7 @@ inline void SDSInitQueue(SDS_QUEUE *b, uint8_t len, void *elems) {
 }
 
 /* Initial the stack. */
-inline void SDSInitStack(SDS_STACK *b, uint8_t len, void *elems) {
+void SDSInitStack(SDS_STACK *b, uint8_t len, void *elems) {
 	b->type = (b->type & 0xFC) | SDS_STACKTYPE;
 	b->len = len;
 	b->inpos = 0;
@@ -20,7 +20,7 @@ inline void SDSInitStack(SDS_STACK *b, uint8_t len, void *elems) {
 }
 
 /* Initial the ring. */
-inline void SDSInitRing(SDS_RING *b, uint8_t len, void *elems) {
+void SDSInitRing(SDS_RING *b, uint8_t len, void *elems) {
 	b->type = (b->type & 0xFC) | SDS_RINGTYPE;
 	b->len = len;
 	b->inpos = 0;
@@ -29,7 +29,7 @@ inline void SDSInitRing(SDS_RING *b, uint8_t len, void *elems) {
 }
 
 /* Test the data structure is empty or not. */
-inline uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
+uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
 	uint8_t rem;
 
 	/* It is empty if input position is different from out position. */
@@ -39,7 +39,7 @@ inline uint8_t SDSEmpty(struct _SDS_BUFFER *b) {
 }
 
 /* Get the number of elements in the buffer of the data structure. */
-inline uint8_t SDSSize(struct _SDS_BUFFER *b) {
+uint8_t SDSSize(struct _SDS_BUFFER *b) {
 	uint8_t rem;
 
 	/* Check the array type.  Then, have the remain count. */
@@ -57,7 +57,7 @@ inline uint8_t SDSSize(struct _SDS_BUFFER *b) {
 }
 
 /* Push an element into the queue. */
-inline uint8_t SDSPushQueue(SDS_QUEUE *b, void *elem, size_t size) {
+uint8_t SDSPushQueue(SDS_QUEUE *b, void *elem, size_t size) {
 	void *dst;
 	uint8_t res = SDS_OK;
 
@@ -77,7 +77,7 @@ inline uint8_t SDSPushQueue(SDS_QUEUE *b, void *elem, size_t size) {
 }
 
 /* Push an element into the stack. */
-inline uint8_t SDSPushStack(SDS_STACK *b, void *elem, size_t size) {
+uint8_t SDSPushStack(SDS_STACK *b, void *elem, size_t size) {
 	void *dst;
 	uint8_t res = SDS_OK;
 
@@ -98,7 +98,7 @@ inline uint8_t SDSPushStack(SDS_STACK *b, void *elem, size_t size) {
 }
 
 /* Push an element into the ring. */
-inline uint8_t SDSPushRing(SDS_RING *b, void *elem, size_t size) {
+uint8_t SDSPushRing(SDS_RING *b, void *elem, size_t size) {
 	void *dst;
 	uint8_t res = SDS_OK;
 	
@@ -149,7 +149,7 @@ inline uint8_t SDSPushRing(SDS_RING *b, void *elem, size_t size) {
 }
 
 /* Pop the first ordered element from the queue. */
-inline uint8_t SDSPopQueue(SDS_QUEUE *b) {
+uint8_t SDSPopQueue(SDS_QUEUE *b) {
 	uint8_t res = SDS_OK;
 
 	/* Check the queue is not empty to prevent buffer over flow. */
@@ -166,7 +166,7 @@ inline uint8_t SDSPopQueue(SDS_QUEUE *b) {
 }
 
 /* Pop the first ordered element from the stack. */
-inline uint8_t SDSPopStack(SDS_STACK *b) {
+uint8_t SDSPopStack(SDS_STACK *b) {
 	uint8_t res = SDS_OK;
 
 	/* Check the stack is not empty to prevent buffer over flow. */
@@ -193,7 +193,7 @@ inline uint8_t SDSPopStack(SDS_STACK *b) {
 }
 
 /* Pop the first ordered element from the ring. */
-inline uint8_t SDSPopRing(SDS_RING *b) {
+uint8_t SDSPopRing(SDS_RING *b) {
 	uint8_t res = SDS_OK;
 
 	/* Check the array type is not rounded ring. */
@@ -230,7 +230,7 @@ inline uint8_t SDSPopRing(SDS_RING *b) {
 }
 
 /* Access next element from the queue. */
-inline void * SDSFrontQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
+void * SDSFrontQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -249,7 +249,7 @@ inline void * SDSFrontQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 }
 
 /* Access next element from the stack. */
-inline void * SDSTopStack(SDS_STACK *b, size_t size, uint8_t *err) {
+void * SDSTopStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -268,7 +268,7 @@ inline void * SDSTopStack(SDS_STACK *b, size_t size, uint8_t *err) {
 }
 
 /* Access next element from the ring. */
-inline void * SDSFrontRing(SDS_RING *b, size_t size, uint8_t *err) {
+void * SDSFrontRing(SDS_RING *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -303,7 +303,7 @@ inline void * SDSFrontRing(SDS_RING *b, size_t size, uint8_t *err) {
 }
 
 /* Access last element from the queue. */
-inline void * SDSBackQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
+void * SDSBackQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -322,7 +322,7 @@ inline void * SDSBackQueue(SDS_QUEUE *b, size_t size, uint8_t *err) {
 }
 
 /* Access last element from the stack. */
-inline void * SDSBackStack(SDS_STACK *b, size_t size, uint8_t *err) {
+void * SDSBackStack(SDS_STACK *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -341,7 +341,7 @@ inline void * SDSBackStack(SDS_STACK *b, size_t size, uint8_t *err) {
 }
 
 /* Access last element from the ring. */
-inline void * SDSBackRing(SDS_RING *b, size_t size, uint8_t *err) {
+void * SDSBackRing(SDS_RING *b, size_t size, uint8_t *err) {
 	void *src = NULL;
 	
 	*err = SDS_OK;
@@ -360,7 +360,7 @@ inline void * SDSBackRing(SDS_RING *b, size_t size, uint8_t *err) {
 }
 
 /* Push an element into the buffer of the data structure. */
-inline uint8_t SDSPush(struct _SDS_BUFFER *b, void *elem, size_t size) {
+uint8_t SDSPush(struct _SDS_BUFFER *b, void *elem, size_t size) {
 	uint8_t (*func[4])(struct _SDS_BUFFER *, void *, size_t);
 
 	/* Set the function pointers for pushing. */
@@ -373,7 +373,7 @@ inline uint8_t SDSPush(struct _SDS_BUFFER *b, void *elem, size_t size) {
 }
 
 /* Pop the first ordered element from the buffer of the data structure. */
-inline uint8_t SDSPop(struct _SDS_BUFFER *b) {
+uint8_t SDSPop(struct _SDS_BUFFER *b) {
 	uint8_t (*func[4])(struct _SDS_BUFFER *);
 
 	/* Set the function pointers for poping. */
@@ -386,7 +386,7 @@ inline uint8_t SDSPop(struct _SDS_BUFFER *b) {
 }
 
 /* Access next element from the buffer of the data structure. */
-inline void * SDSFront(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
+void * SDSFront(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 	void * (*func[4])(struct _SDS_BUFFER *, size_t, uint8_t *);
 
 	/* Set the function pointers for get next element. */
@@ -399,7 +399,7 @@ inline void * SDSFront(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 }
 
 /* Access last element from the buffer of the data structure. */
-inline void * SDSBack(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
+void * SDSBack(struct _SDS_BUFFER *b, size_t size, uint8_t *err) {
 	void * (*func[4])(struct _SDS_BUFFER *, size_t, uint8_t *);
 
 	/* Set the function pointers for get last element. */
