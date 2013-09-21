@@ -1,6 +1,7 @@
 #ifndef _SIMPLEDATASTRUCTURE_H_
 #define _SIMPLEDATASTRUCTURE_H_
 
+#include <string.h>
 #include <stdint.h>
 
 /* Define the data structure type. */
