@@ -5,7 +5,7 @@
 ------------------------------------------------------------------------------*/
 
 #include <stdio.h>
-#include "datastructure/datastructure.h"
+#include "datastructure.h"
 
 #define BUFLEN	8
 

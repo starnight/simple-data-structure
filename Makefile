@@ -1,5 +1,5 @@
 CC = cc
-INCLUDE = datastructure
+INCLUDE = .
 CFLAGS = -Wall -O3
 OBJECTS = datastructure.o
 TARGET = demo.bin
@@ -7,8 +7,8 @@ TARGET = demo.bin
 demo: $(OBJECTS)
 	$(CC) -I$(INCLUDE) $(CFLAGS) $(OBJECTS) demo.c -o $(TARGET)
 
-datastructure.o: $(INCLUDE)/datastructure.c $(INCLUDE)/datastructure.h
-	$(CC) $(CFLAGS) -o $@ -c $<
+datastructure.o:
+	$(CC) $(CFLAGS) -o $@ -c $(subst .o,.c,$@)
 
 .PHONY: clean
 clean:
