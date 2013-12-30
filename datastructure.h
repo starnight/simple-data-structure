@@ -57,6 +57,10 @@ uint8_t SDSPop(struct _SDS_BUFFER *);
 void * SDSFront(struct _SDS_BUFFER *, size_t, uint8_t *);
 /* Access last element from the buffer of the data structure. */
 void * SDSBack(struct _SDS_BUFFER *, size_t, uint8_t *);
+/* Set the next input and output index of the data structure. */
+#define SDSSetIndex(SDS, inPos, outPos)	({ \
+	(SDS)->inpos = inPos; \
+	(SDS)->outpos = outPos; })
 
 /* Push an element into the buffer of the queue. */
 uint8_t SDSPushQueue(SDS_QUEUE *, void *, size_t);
